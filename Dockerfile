@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && \
+RUN mkdir -p /app/logs && \
+    apt-get update && \
     apt-get install -y \
         git \
         g++ \
@@ -46,6 +47,7 @@ RUN apt-get update && \
         llvm-dev \
         automake \
         wget \
+        vim \
         python3-pip
 
 RUN python3 -m pip install --user cxxfilt
@@ -55,11 +57,15 @@ WORKDIR /usr/ns3
 RUN wget http://www.nsnam.org/release/ns-allinone-3.26.tar.bz2 && \
     tar xjf ns-allinone-3.26.tar.bz2
 
-RUN cd ns-allinone-3.26/ns-3.26 && \
-    ./waf configure --build-profile=debug --enable-examples --enable-tests && \
+WORKDIR /usr/ns3/ns-allinone-3.26/ns-3.26
+
+RUN ./waf configure --build-profile=debug --enable-examples --enable-tests && \
     ./waf build
 
-WORKDIR /usr/ns3/ns-allinone-3.26/ns-3.26
+COPY sim/sim.cc scratch/sim.cc
+COPY sumo_outputs/boa_vista/ns3.tcl scratch/ns3.tcl
+
+RUN ./waf
 
 ENTRYPOINT ["./waf"]
 CMD ["--help"]
