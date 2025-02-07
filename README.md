@@ -4,9 +4,9 @@ Repositório da minha simulação do TCC da UFRR.
 
 ## Descrição
 
-Simulação, por meio do [ns-3](https://www.nsnam.org/), de um dispositivo rastreador, que coleta
-constantemente dados de localização mesmo em áreas de baixa conectividade, utilizando o protocolo
-NB-IoT em áreas de cobertura 5G.
+Simulação, por meio do [ns-3](https://www.nsnam.org/) (versão 3.26), de um dispositivo rastreador,
+que coleta constantemente dados de localização mesmo em áreas de baixa conectividade, utilizando o
+protocolo NB-IoT em áreas de cobertura 5G.
 
 ## Big Picture
 
