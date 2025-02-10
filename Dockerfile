@@ -65,7 +65,7 @@ RUN rm -rf src/lte/model && \
     ./waf configure --build-profile=debug --enable-examples --enable-tests && \
     ./waf build
 
-COPY sim/sim.cc scratch/sim.cc
+COPY sim/* scratch/
 COPY sumo_outputs/boa_vista/ns3.tcl scratch/ns3.tcl
 
 RUN ./waf
