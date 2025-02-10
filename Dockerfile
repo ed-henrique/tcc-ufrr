@@ -55,11 +55,14 @@ RUN python3 -m pip install --user cxxfilt
 WORKDIR /usr/ns3
 
 RUN wget http://www.nsnam.org/release/ns-allinone-3.26.tar.bz2 && \
+    git clone https://github.com/a3794110/ns-3-NB-IoT.git && \
     tar xjf ns-allinone-3.26.tar.bz2
 
 WORKDIR /usr/ns3/ns-allinone-3.26/ns-3.26
 
-RUN ./waf configure --build-profile=debug --enable-examples --enable-tests && \
+RUN rm -rf src/lte/model && \
+    cp -r /usr/ns3/ns-3-NB-IoT/model src/lte/ && \
+    ./waf configure --build-profile=debug --enable-examples --enable-tests && \
     ./waf build
 
 COPY sim/sim.cc scratch/sim.cc
