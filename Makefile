@@ -1,11 +1,27 @@
-build:
-	@docker build . -t tcc_ufrr
+build.nb_iot:
+	@docker build -t tcc_ufrr_nb_iot -f Dockerfile.NB-IoT .
 
-hello:
-	@docker run -it tcc_ufrr "--run=hello_simulator"
+run.nb_iot:
+	@docker build -t tcc_ufrr_nb_iot -f Dockerfile.NB-IoT .
 
-sim:
-	docker run -ti --rm -v tcc_ufrr_logs:/app/logs tcc_ufrr --run "sim --traceFile=scratch/ns3.tcl --nodeNum=1 --duration=100.0 --logFile=/app/logs/sim.log"
+# Older NB-IoT implementation, not as many articles about it
+build.nb_iot_2:
+	@docker build -t tcc_ufrr_nb_iot_2 -f Dockerfile.NB-IoT-2 .
 
+# Older NB-IoT implementation, not as many articles about it
+run.nb_iot_2:
+	@docker build -t tcc_ufrr_nb_iot_2 -f Dockerfile.NB-IoT-2 .
 
-.PHONY: build hello sim
+build.lorawan:
+	@docker build -t tcc_ufrr_lorawan -f Dockerfile.LoRaWAN .
+
+run.lorawan:
+	@docker build -t tcc_ufrr_lorawan -f Dockerfile.LoRaWAN .
+
+build.sigfox:
+	@docker build -t tcc_ufrr_sigfox -f Dockerfile.Sigfox .
+
+run.sigfox:
+	@docker build -t tcc_ufrr_sigfox -f Dockerfile.Sigfox .
+
+.PHONY: build.nb_iot build.nb_iot_2 build.lorawan build.sigfox run.nb_iot run.nb_iot_2 run.lorawan run.sigfox
