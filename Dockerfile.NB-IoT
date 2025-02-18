@@ -74,14 +74,15 @@ RUN wget http://www.nsnam.org/release/ns-allinone-3.32.tar.bz2 && \
 
 WORKDIR /usr/ns3/ns-allinone-3.32/ns-3.32
 
-RUN rm -rf src/lte src/propagation && \
+RUN mkdir /logs && \
+    rm -rf src/lte src/propagation && \
     git clone https://github.com/tudo-cni/ns3-lena-nb.git src/lte && \
     git clone https://github.com/tudo-cni/ns3-propagation-winner-plus.git src/propagation
 
-RUN CXXFLAGS="-Wall" ./waf configure --build-profile=optimized
+RUN CXXFLAGS="-Wall" ./waf configure --build-profile=optimized --enable-examples
 RUN ./waf -v
 
-COPY sim/* scratch/
+COPY sim/nb_iot.cc scratch/
 COPY sumo_outputs/boa_vista/ns3.tcl scratch/ns3.tcl
 
 ENTRYPOINT ["./waf"]

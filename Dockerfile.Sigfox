@@ -83,5 +83,8 @@ RUN git clone https://github.com/DEIS-Tools/ns3-sigfox.git src/sigfox && \
 RUN ./waf configure --build-profile=optimized --enable-examples
 RUN ./waf build
 
+COPY sim/sigfox.cc scratch/
+COPY sumo_outputs/boa_vista/ns3.tcl scratch/ns3.tcl
+
 ENTRYPOINT ["./waf"]
 CMD ["--help"]
