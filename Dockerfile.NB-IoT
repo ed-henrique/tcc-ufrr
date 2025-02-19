@@ -79,7 +79,7 @@ RUN mkdir /logs && \
     git clone https://github.com/tudo-cni/ns3-lena-nb.git src/lte && \
     git clone https://github.com/tudo-cni/ns3-propagation-winner-plus.git src/propagation
 
-RUN CXXFLAGS="-Wall" ./waf configure --build-profile=optimized --enable-examples
+RUN CXXFLAGS="-Wall" ./waf configure --build-profile=debug --enable-examples
 RUN ./waf -v
 
 COPY sim/nb_iot.cc scratch/
